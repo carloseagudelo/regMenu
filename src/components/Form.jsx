@@ -17,42 +17,6 @@ var Form = React.createClass({
   },
   //#endregion
 
-  //#region Metodos
-  nameChange: function (e){  
-    this.setState({
-      name: e.target.value 
-    })
-  },
-
-  priceChange: function(e){    
-    this.setState({
-      price: e.target.value 
-    })
-  },
-
-  descriptionChange: function(e){    
-    this.setState({
-      description: e.target.value
-    })
-  },
-
-  changeHandler: function(e) {
-    this.setState({
-      selected : e.target.value
-    })
-  },
-
-  guardarClic: function() {
-    if(this.state.name != '' && this.state.price !='' && this.state.description !=  '' && this.state.selected != 0){
-      MenuAction.crearMenu(this.state.name, this.state.price, this.state.description, this.state.selected); // React Component instance
-    }
-    else
-    {
-      alert('No ha ingresado la información correctamente')
-    } 
-  },
-  //#endregion 
-
   render: function() {
     return (
       React.createElement('form', {className: 'form-group'},
@@ -93,6 +57,45 @@ var Form = React.createClass({
       )
     )
   },
+
+  
+  //#region Metodos
+  nameChange: function (e){  
+    this.setState({
+      name: e.target.value 
+    })
+  },
+
+  priceChange: function(e){    
+    this.setState({
+      price: e.target.value 
+    })
+  },
+
+  descriptionChange: function(e){    
+    this.setState({
+      description: e.target.value
+    })
+  },
+
+  changeHandler: function(e) {
+    this.setState({
+      selected : e.target.value
+    })
+  },
+
+  guardarClic: function() {
+    if(this.state.name != '' && this.state.price !='' && this.state.description !=  '' && this.state.selected != 0){
+      MenuAction.crearMenu(this.state.name, this.state.price, this.state.description, this.state.selected); // React Component instance
+    }
+    else
+    {
+      alert('No ha ingresado la información correctamente')
+    } 
+  },
+  //#endregion 
+
+  
 });
 
 export default Form;
