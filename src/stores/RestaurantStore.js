@@ -4,10 +4,10 @@ import RestaurantActions from '../actions/RestaurantAction';
 
 var RestaurantStore = Reflux.createStore({
 
-    listenables: [RestaurantActions],
-    restaurantlist: [],
+    listenables: [RestaurantActions],    
 
     listarRestaurante: function() {    
+      restaurantlist: [],
       $.ajax({
         async: true,
       	crossDomain: true,
@@ -18,10 +18,11 @@ var RestaurantStore = Reflux.createStore({
 		    success: function(data) {
           console.log(data);
           this.restaurantlist = data.slice();
-          this.trigger(this.restaurantlist);     
+          this.trigger(this.restaurantlist); 
+          return this.restaurantlist; 
         }
 	    });
-    }
+    },
 });
 
 export default RestaurantStore;

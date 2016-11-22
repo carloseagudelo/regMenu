@@ -1,11 +1,10 @@
 import React from 'react';
 import Reflux from 'reflux';
 import MenuStore from '../stores/MenuStore.js';
+import RestaurantStore from '../stores/RestaurantStore.js';
 import MenuAction from '../actions/MenuAction.js';
 
 var Form = React.createClass({
-
-   mixins: [Reflux.connect(MenuStore, 'menustore')],
 
   //#region Definicion de propiedades
   getInitialState: function () {
@@ -13,6 +12,7 @@ var Form = React.createClass({
       name: '',
       price: '',
       description: '',
+      listarestaurantes: [],
     };
   },
   //#endregion
@@ -20,35 +20,41 @@ var Form = React.createClass({
   render: function() {
     return (
       React.createElement('form', {className: 'form-group'},
-        React.createElement("label", {className: "label"}, 'Nombre del menú'),
+
+        React.createElement("label", {className: "label"}, 'Nombre del menú'), 
         React.createElement('input', {
           type: 'text',
           className: 'form-control',         
           onChange: this.nameChange,
         }),
+
         React.createElement("label", {className: "label"}, 'Precio'),
         React.createElement('input', {
           type: 'number',
           className: 'form-control',
           onChange: this.priceChange.bind(this),         
         }),
+
         React.createElement("label", {className: "label"}, 'Descripción'),
         React.createElement('input', {
           type: 'text',
           className: 'form-control',
           onChange: this.descriptionChange.bind(this), 
         }),
+
         React.createElement("label", {className: "label"}, 'Seleccione un restaurante'),
         React.createElement('select', 
           { value: this.state.selected,
            onChange: this.changeHandler,
-           className: 'form-control',
-         },
+           onClick: this.listarRestaurantes.bind(this),
+           className: 'form-control', 
+          },
           React.createElement("option", { value: 0 }, ""),
           React.createElement("option", { value: 1 }, "RESTAURANTE 1"),
           React.createElement("option", { value: 2 }, "RESTAURANTE 2"),
-          React.createElement("option", { value: 3 }, "RESTAURANTE 3"),
+          React.createElement("option", { value: 3 }, "RESTAURANTE 3"),       
         ),
+
         React.createElement('input', {
           type: 'submit',
           onClick: this.guardarClic,
@@ -58,7 +64,7 @@ var Form = React.createClass({
     )
   },
 
-  
+
   //#region Metodos
   nameChange: function (e){  
     this.setState({
@@ -93,9 +99,14 @@ var Form = React.createClass({
       alert('No ha ingresado la información correctamente')
     } 
   },
+
+  listarRestaurantes: function(){
+    this.listarestau.rantes = RestaurantStore.listarRestaurante().slice();
+    console.log(this.listarestaurantes[0])
+  }
   //#endregion 
 
-  
+
 });
 
 export default Form;
