@@ -6,13 +6,14 @@ import MenuAction from '../actions/MenuAction.js';
 
 var Form = React.createClass({
 
+  mixins: [Reflux.connect(RestaurantStore, 'restaurantstore')],
+
   //#region Definicion de propiedades
   getInitialState: function () {
     return {
       name: '',
       price: '',
       description: '',
-      listarestaurantes: [],
     };
   },
   //#endregion
@@ -32,27 +33,23 @@ var Form = React.createClass({
         React.createElement('input', {
           type: 'number',
           className: 'form-control',
-          onChange: this.priceChange.bind(this),         
+          onChange: this.priceChange,         
         }),
 
         React.createElement("label", {className: "label"}, 'Descripción'),
         React.createElement('input', {
           type: 'text',
           className: 'form-control',
-          onChange: this.descriptionChange.bind(this), 
+          onChange: this.descriptionChange, 
         }),
 
         React.createElement("label", {className: "label"}, 'Seleccione un restaurante'),
-        React.createElement('select', 
-          { value: this.state.selected,
-           onChange: this.changeHandler,
-           onClick: this.listarRestaurantes.bind(this),
-           className: 'form-control', 
+        React.createElement('select', {
+            value: this.state.selected,
+            onChange: this.changeHandler,
+            className: 'form-control', 
           },
-          React.createElement("option", { value: 0 }, ""),
-          React.createElement("option", { value: 1 }, "RESTAURANTE 1"),
-          React.createElement("option", { value: 2 }, "RESTAURANTE 2"),
-          React.createElement("option", { value: 3 }, "RESTAURANTE 3"),       
+          this.listarRestaurantes()
         ),
 
         React.createElement('input', {
@@ -94,15 +91,23 @@ var Form = React.createClass({
     if(this.state.name != '' && this.state.price !='' && this.state.description !=  '' && this.state.selected != 0){
       MenuAction.crearMenu(this.state.name, this.state.price, this.state.description, this.state.selected); // React Component instance
     }
-    else
-    {
+    else{
       alert('No ha ingresado la información correctamente')
     } 
   },
 
   listarRestaurantes: function(){
-    this.listarestau.rantes = RestaurantStore.listarRestaurante().slice();
-    console.log(this.listarestaurantes[0])
+    if(this.state.restaurantstore) {
+      this.state.restaurantstore.map(function(restaurant){
+        return 
+          <option key = {restaurant.id_restaurant} 
+          value = {restaurant.name_restaurant}>{restaurant.name_restaurant}
+          </option>
+      })
+    }
+    else{
+      console.log('No hay restaurantes registrados')
+    } 
   }
   //#endregion 
 

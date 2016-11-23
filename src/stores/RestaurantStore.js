@@ -4,23 +4,30 @@ import RestaurantActions from '../actions/RestaurantAction';
 
 var RestaurantStore = Reflux.createStore({
 
-    listenables: [RestaurantActions],    
+    listenables: [RestaurantActions], 
+    restaurantlist: [],
+
+    init: function()
+    {
+      this.listarRestaurante();
+    },
 
     listarRestaurante: function() {    
-      restaurantlist: [],
       $.ajax({
         async: true,
       	crossDomain: true,
-        url: 'https://restaurants-udea-soft.herokuapp.com/restaurants',
+        url: 'http://localhost:3000/restaurants',
         method: 'GET',
       	cache: false,
       	context: this,    	
 		    success: function(data) {
-          console.log(data);
-          this.restaurantlist = data.slice();
-          this.trigger(this.restaurantlist); 
-          return this.restaurantlist; 
-        }
+          this.restaurantlist = data.slice(); 
+          this.trigger(this.restaurantlist);        
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          console.log("Status: " + textStatus); 
+          console.log("Error: " + errorThrown); 
+        } 
 	    });
     },
 });
