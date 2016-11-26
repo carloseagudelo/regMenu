@@ -49,7 +49,15 @@ var Form = React.createClass({
             onChange: this.changeHandler,
             className: 'form-control', 
           },
-          this.listarRestaurantes()
+          React.createElement("option", { value: 0 }, ""),
+          React.createElement("option", { value: 10 }, "Doña Rosa"),
+          React.createElement("option", { value: 11 }, "Restaurante Rafael"),
+          React.createElement("option", { value: 12 }, "DF"),
+          React.createElement("option", { value: 13 }, "Subway"),
+          React.createElement("option", { value: 14 }, "McDonalds"),
+          React.createElement("option", { value: 1 }, "25 noviembre"),
+          React.createElement("option", { value: 2 }, "scala food"),
+          React.createElement("option", { value: 4 }, "scala food 2"),
         ),
 
         React.createElement('input', {

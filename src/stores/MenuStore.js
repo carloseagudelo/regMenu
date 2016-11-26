@@ -14,7 +14,7 @@ var MenuStore = Reflux.createStore({
       	url: 'https://haskell-dojo.herokuapp.com/menus',
   		  method: 'POST',
   		  processData: false,
-  		  data: '{\n\"restaurant\": 1,\n\"name\": \name\",\n\"price\": price,\n\"description\": \description\"\n}',
+  		  data: '{\n\"restaurant\": 1,\n\"name_dish\": \name\",\n\"price\": price,\n\"description\": \description\"\n}',
 		    success: function(data) {
           console.log(data);     
         }
